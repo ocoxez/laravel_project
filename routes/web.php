@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReportController;
+use App\Http\Middleware;
+use App\Http\Middleware\Admin;
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,6 +26,12 @@ Route::delete('/reports/{report}', [ReportController::class, 'destroy'])->name('
 Route::post('/reports', [ReportController::class, 'store'])->name('report.store');
 Route::get('/reports/{report}/edit', [ReportController::class, 'edit'])->name('reports.edit');
 Route::put('/reports/{report}', [ReportController::class, 'update'])->name('reports.update');
+Route::middleware((Admin::class))->group(function(){
+    Route::get('/admin', function (){
+        return view('admin.index');
+    }
+    ) -> name('admin.index');
+});
 });
 
 require __DIR__.'/auth.php';
@@ -32,9 +40,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/reports', function () {
-//     return view('report.index');
-// })->name('reports.index');
+
 
 
 
