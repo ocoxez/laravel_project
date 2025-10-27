@@ -11,6 +11,7 @@
 </head>
 
 <body>
+    <x-app-layout>
     <header class="header">
         <nav class="header-nav">
             <ul class="nav-list">
@@ -37,7 +38,7 @@
 
     </main>
 
-
+    </x-app-layout>
 </body>
 
 </html>

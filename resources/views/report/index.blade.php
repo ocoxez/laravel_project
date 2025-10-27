@@ -11,7 +11,7 @@
 </head>
 
 <body>
-
+<x-app-layout>
     <header class="header">
         <nav class="header-nav">
             <ul class="nav-list">
@@ -70,6 +70,7 @@
             {{$reports->links()}}
         </section>
     </main>
+</x-app-layout>
 </body>
 
 </html>

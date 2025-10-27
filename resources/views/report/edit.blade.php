@@ -11,6 +11,7 @@
 </head>
 
 <body>
+    <x-app-layout>
     <header class="header">
         <nav class="header-nav">
             <ul class="nav-list">
@@ -36,7 +37,7 @@
             </form>
         </div>
     </main>
-
+    </x-app-layout>
 </body>
 
 </html>
