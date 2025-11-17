@@ -2,6 +2,20 @@ import './bootstrap';
 
 import Alpine from 'alpinejs';
 
+const selectElements = document.querySelectorAll('.status-form #status_id');
+for (let elem of selectElements) {
+    const currentStatus = parseInt(elem.dataset.currentStatus);
+    if ([2, 3].includes(currentStatus)) {
+        elem.disabled = true;
+    }
+    elem.addEventListener('change', function () {
+        if ([2, 3].includes(currentStatus)) {
+            return;
+        }
+        this.form.submit();
+    });
+}
+
 window.Alpine = Alpine;
 
 Alpine.start();

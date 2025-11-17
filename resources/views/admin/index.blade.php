@@ -1,31 +1,26 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Панель администратора - Все заявки</title>
+    <link rel="stylesheet" href="resources/js/app.js">
     @vite(['resources/css/reset.css'])
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/reports.css'])
 </head>
 
 <body>
 <x-app-layout>
-    <header class="header">
+     <header class="header">
         <nav class="header-nav">
             <ul class="nav-list">
                 <li class="list-item">
-                    <a href="/admin" class="item-link">Нарушений<span>.нет</span> - Админ</a>
+                    <a href="/reports" class="item-link">Нарушений<span>.нет</span></a>
                 </li>
             </ul>
         </nav>
         <div class="login-logout">
-            @auth
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit">Выход</button>
-                </form>
-            @endauth
         </div>
     </header>
 
@@ -66,7 +61,6 @@
                             <th>Текст заявления</th>
                             <th>Номер автомобиля</th>
                             <th>Статус</th>
-                            <th>Действие</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -76,21 +70,17 @@
                                 <td>{{ $report->description }}</td>
                                 <td>{{ $report->number }}</td>
                                 <td>
-                                    <strong>{{ $report->status->name ?? 'Нет статуса' }}</strong>
-                                </td>
-                                <td>
-                                    <form method="POST" action="{{ route('admin.report.update', $report) }}" style="display: flex; gap: 5px;">
+                                    <form class="status-form" action="{{ route('reports.status.update', $report->id) }}" method="POST" style="display: flex; gap: 5px;" >
                                         @csrf
-                                        @method('PUT')
-                                        <select name="status_id" required>
-                                            @foreach($statuses as $status)
-                                                <option value="{{ $status->id }}" 
-                                                        {{ $report->status_id == $status->id ? 'selected' : '' }}>
+                                        @method('patch')
+                                        <select name="status_id" id="status_id" data-current-status="{{ $report->status_id }}">
+                                            @foreach($statuses as $status)  
+                                                <option value="{{ $status->id }}" {{ $status->id === $report->status_id ? 'selected' : ''}}>
+
                                                     {{ $status->name }}
                                                 </option>
                                             @endforeach
                                         </select>
-                                        <button type="submit" style="padding: 5px 10px; cursor: pointer;">Обновить</button>
                                     </form>
                                 </td>
                             </tr>
@@ -124,5 +114,19 @@
         border-collapse: collapse;
         text-align: left;
     }
+    .main {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  padding: 0 20px;
+  margin: 0 auto;
+  padding: 25px 0;
+  align-items: center;
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
 </style>
 </html>

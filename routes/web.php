@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReportController;
+use App\Http\Middleware\Admin;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,14 +26,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/reports', [ReportController::class, 'store'])->name('report.store');
     Route::get('/reports/{report}/edit', [ReportController::class, 'edit'])->name('reports.edit');
     Route::put('/reports/{report}', [ReportController::class, 'update'])->name('reports.update');
-
+    Route::patch('/reports/status/{report}', [ReportController::class,'statusUpdate'])->name('reports.status.update');
     
-    Route::middleware('admin')
-        ->prefix('admin')      
-        ->name('admin.')      
-        ->group(function () {
-            Route::get('/', [AdminController::class, 'index'])->name('index'); 
-            Route::put('/reports/{report}', [AdminController::class, 'update'])->name('report.update');
-    });
+   
 });
+ Route::middleware(Admin::class)    
+        ->group(function () {
+            Route::get('/admin', [AdminController::class, 'index'])->name('admin.index'); 
+            Route::patch('/admin/{report}', [AdminController::class, 'update'])->name('admin.update');
+    });
 require __DIR__.'/auth.php';
