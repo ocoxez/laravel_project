@@ -26,7 +26,7 @@ class ReportController extends Controller
         ]);
         if($validate){
             $reports = Report::where('status_id', $status)
-            ->where('user_id', Auth::user()-id)
+            ->where('user_id', Auth::user()->id)
             ->orderBy('created_at', $sort)
             ->paginate(8);
         } else {
@@ -51,8 +51,7 @@ class ReportController extends Controller
     }
 
     public function store(Request $request, Report $report)
-    {
-        if (Auth::user()->id === $report->user_id) {
+    {   
             $data = $request->validate([
             'number' => 'string',
             'description' => 'string',
@@ -63,9 +62,6 @@ class ReportController extends Controller
 
         $report->create($data);
         return redirect()->back();
-        } else {
-            abort(403, "У вас нет прав на редактирование этой записи");
-        }
 
         
     }
