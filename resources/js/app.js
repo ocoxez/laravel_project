@@ -1,6 +1,10 @@
 import './bootstrap';
 import 'flowbite';
 import Alpine from 'alpinejs';
+import.meta.glob([
+    '../images/**',
+ ]);
+import { mask } from '@alpinejs/mask';
 
 const selectElements = document.querySelectorAll('.status-form #status_id');
 for (let elem of selectElements) {
@@ -15,7 +19,7 @@ for (let elem of selectElements) {
         this.form.submit();
     });
 }
-
+Alpine.plugin(mask);
 window.Alpine = Alpine;
 
 Alpine.start();

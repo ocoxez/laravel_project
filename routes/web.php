@@ -28,7 +28,6 @@ Route::middleware('auth')->group(function () {
     Route::put('/reports/{report}', [ReportController::class, 'update'])->name('reports.update');
     Route::patch('/reports/status/{report}', [ReportController::class,'statusUpdate'])->name('reports.status.update');
     
-   
 });
  Route::middleware(Admin::class)    
         ->group(function () {
