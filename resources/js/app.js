@@ -1,5 +1,5 @@
 import './bootstrap';
-
+import 'flowbite';
 import Alpine from 'alpinejs';
 
 const selectElements = document.querySelectorAll('.status-form #status_id');
