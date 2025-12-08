@@ -140,11 +140,10 @@
                         </table>
                     </div>
                     
-                    @if($reports->hasPages())
                     <div class="bg-gray-50 px-6 py-4 border-t border-gray-200">
                         {{ $reports->links() }}
                     </div>
-                    @endif
+                    
                 </div>
 
             </div>

@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Редактирование заявки | Нарушений.нет</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @include('layouts.flash-messages')
 </head>
 
 <body class="h-full font-sans antialiased text-slate-600">

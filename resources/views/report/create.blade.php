@@ -1,4 +1,3 @@
-@include('layouts.flash-messages')
 <!DOCTYPE html>
 <html lang="ru" class="h-full bg-gray-50">
 
@@ -7,12 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Создать заявление | Нарушений.нет</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @include('layouts.flash-messages')
 </head>
 
 <body class="h-full font-sans antialiased text-slate-600">
     <x-app-layout>
         
         <main class="py-12">
+             @include('layouts.flash-messages')
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-center">
                 
                 <div class="w-full max-w-lg bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">

@@ -7,6 +7,7 @@
     "30 Days": "30 дней",
     "60 Days": "60 дней",
     "90 Days": "90 дней",
+    "tel": "Телефон",
     ":amount selected": "Выбрано :amount",
     ":amount Total": "Всего :amount",
     ":days day trial": ":days-дневная пробная версия",
