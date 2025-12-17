@@ -23,44 +23,7 @@
                     </a>
                 </div>
 
-                <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 mb-8">
-                    <div class="flex flex-col lg:flex-row gap-6 justify-between items-start lg:items-center">
-                        
-                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 w-full lg:w-auto">
-                            <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Сортировка</span>
-                            <div class="flex gap-2">
-                                <a href="{{ route('report.index', ['sort' => 'desc', 'status' => request('status')]) }}" 
-                                   class="px-4 py-2 text-sm rounded-lg border border-transparent {{ request('sort') == 'desc' || !request('sort') ? 'bg-slate-100 text-slate-900 font-semibold' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-700' }} transition-colors">
-                                    Сначала новые
-                                </a>
-                                <a href="{{ route('report.index', ['sort' => 'asc', 'status' => request('status')]) }}" 
-                                   class="px-4 py-2 text-sm rounded-lg border border-transparent {{ request('sort') == 'asc' ? 'bg-slate-100 text-slate-900 font-semibold' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-700' }} transition-colors">
-                                    Сначала старые
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 w-full lg:w-auto overflow-x-auto">
-                            <span class="text-xs font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap">Статус</span>
-                            <div class="flex flex-wrap gap-2">
-                                <a href="{{ route('report.index', ['sort' => request('sort')]) }}"
-                                   class="px-4 py-2 text-sm rounded-full border {{ !request('status') ? 'bg-blue-50 border-blue-200 text-blue-700 font-medium' : 'border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50' }} transition-all">
-                                    Все
-                                </a>
-                                @foreach($statuses as $statusItem)
-                                    <a href="{{ route('report.index', ['sort' => request('sort'), 'status' => $statusItem->id])}}" 
-                                       class="px-4 py-2 text-sm rounded-full border whitespace-nowrap transition-all
-                                       {{ request('status') == $statusItem->id 
-                                            ? 'bg-blue-50 border-blue-200 text-blue-700 font-medium' 
-                                            : 'border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50' 
-                                       }}">
-                                        {{ $statusItem->name }}
-                                    </a>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <x-filter :sort="$sort" :status="$status" />
 
                 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                     @foreach ($reports as $report)
@@ -77,13 +40,9 @@
                             </div>
                             
                             <div class="mb-4">
-                                <span class="inline-block px-3 py-1 rounded-md text-sm font-semibold 
-                                    {{ $report->status->name === 'Новое' ? 'bg-amber-50 text-amber-700 border border-amber-100' : '' }}
-                                    {{ $report->status->name === 'Отклонено' ? 'bg-red-50 text-red-700 border border-red-100' : '' }}
-                                    {{ $report->status->name === 'Решено' ? 'bg-emerald-50 text-emerald-700 border border-emerald-100' : '' }}
-                                    bg-slate-50 text-slate-700 border border-slate-100">
+                                <x-status :type="$report->status->id">
                                     {{ $report->status->name }}
-                                </span>
+                                </x-status>
                             </div>
 
                             <p class="text-slate-600 text-base leading-relaxed line-clamp-3 mb-4 flex-grow">

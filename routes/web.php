@@ -10,28 +10,26 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
     Route::get('/reports', [ReportController::class, 'index'])->name('report.index');
     Route::get('/reports/create', function () {
         return view('report.create');
     })->name('reports.create');
-    Route::delete('/reports/{report}', [ReportController::class, 'destroy'])->name('report.destroy');
+    
     Route::post('/reports', [ReportController::class, 'store'])->name('report.store');
     Route::get('/reports/{report}/edit', [ReportController::class, 'edit'])->name('reports.edit');
     Route::put('/reports/{report}', [ReportController::class, 'update'])->name('reports.update');
-    Route::patch('/reports/status/{report}', [ReportController::class,'statusUpdate'])->name('reports.status.update');
-    
+    Route::delete('/reports/{report}', [ReportController::class, 'destroy'])->name('report.destroy');
+    Route::patch('/reports/status/{report}', [ReportController::class, 'statusUpdate'])->name('reports.status.update');
 });
- Route::middleware(Admin::class)    
-        ->group(function () {
-            Route::get('/admin', [AdminController::class, 'index'])->name('admin.index'); 
-            Route::patch('/admin/{report}', [AdminController::class, 'update'])->name('admin.update');
-    });
+
+Route::middleware(Admin::class)->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index'); 
+    Route::patch('/admin/{report}', [AdminController::class, 'update'])->name('admin.update');
+});
+
 require __DIR__.'/auth.php';
